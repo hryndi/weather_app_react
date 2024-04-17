@@ -1,48 +1,46 @@
-// import styled from "@emotion/styled/macro";
-import { useWeatherApp } from "./WeatherApp.hooks";
+import styled from "@emotion/styled";
 import InputComponent from "./components/InputComponent";
-import DataComponent from "./components/DataComponent";
-function App() {
-  const { geoValue, currentWether } = useWeatherApp();
+import CurrentInfoComponent from "./components/CurrentInfoComponent";
+import TableComponent from "./components/TableComponent";
+import StateTimeComponent from "./components/StateTimeComponent";
+import { useWeatherApp } from "./WeatherApp.hooks";
+
+const Main = styled.main`
+  border: orange 1px solid;
+  display: grid;
+  gap: 1.5rem;
+  justify-items: center;
+`;
+
+export default function App() {
+  const {
+    currentWether,
+    submitHandler,
+    cityName,
+    setCityName,
+    renderedCityName,
+    conditionHandler,
+    weaklyWether,
+  } = useWeatherApp();
+
   return (
-    <main>
-      <InputComponent />
-      <div>
-        <div className="d-flex">
-          <DataComponent value={currentWether.time} textValue="Request time" />
-          <DataComponent
-            className="mg-top"
-            value={currentWether.temperature_2m}
-            units={currentWether.current_units.temperature_2m}
-            textValue="Current temperatur"
-          />
-        </div>
-        <div className="d-flex">
-          <DataComponent
-            value={currentWether.relative_humidity_2m}
-            units={currentWether.current_units.relative_humidity_2m}
-            textValue="Current humidity value"
-          />
-          <DataComponent
-            className="mg-top mg-left"
-            value={currentWether.wind_speed_10m}
-            units={currentWether.current_units.wind_speed_10m}
-            textValue="Current text speed value"
-          />
-        </div>
-      </div>
-    </main>
+    <Main>
+      <InputComponent
+        cityName={cityName}
+        setCityName={setCityName}
+        submitHandler={submitHandler}
+      />
+      <StateTimeComponent
+        cityName={renderedCityName}
+        time={currentWether.time}
+      />
+      <CurrentInfoComponent
+        temperatur={currentWether.temperature_2m}
+        symbol={currentWether.current_units}
+        windSpeed={currentWether.wind_speed_10m}
+        conditionHandler={conditionHandler}
+      />
+      <TableComponent weaklyWether={weaklyWether} />
+    </Main>
   );
-}
-
-export default App;
-
-{
-  /* <p>Weather Coordinats: {`${geoValue.lat} || ${geoValue.long}`}</p> */
-}
-{
-  /* <p>
-        Current Weather:{" "}
-        {`${currentWether.interval} || ${currentWether.relative_humidity_2m} || ${currentWether.temperature_2m} || ${currentWether.time} || ${currentWether.wind_speed_10m}`}
-      </p> */
 }

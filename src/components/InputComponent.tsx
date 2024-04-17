@@ -1,16 +1,43 @@
-import { useWeatherApp } from "../WeatherApp.hooks";
+import { Dispatch, FC, SetStateAction } from "react";
+import styled from "@emotion/styled";
 
-const InputComponent = () => {
-  const { setCityName, cityName } = useWeatherApp();
-  console.log(cityName);
+const Input = styled.input`
+  border-color: red;
+  padding: 1px;
+  border-radius: 9999em;
+`;
+const Button = styled.button`
+  border-color: #cd1313;
+  border-radius: 0.5rem;
+  margin-left: 1rem;
+`;
+
+interface Props {
+  cityName: string;
+  setCityName: Dispatch<SetStateAction<string>>;
+  submitHandler: () => void;
+}
+
+const InputComponent: FC<Props> = ({
+  submitHandler,
+  cityName,
+  setCityName,
+}) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      submitHandler();
+    } else return;
+  };
   return (
-    <form action="">
-      <input
-        type="text"
-        onChange={(item) => setCityName(item.target.value)}
+    <div>
+      <Input
         value={cityName}
+        onChange={(e) => setCityName(e.target.value)}
+        type="text"
+        onKeyDown={(e) => handleKeyDown(e)}
       />
-    </form>
+      <Button onClick={() => submitHandler()}>Check</Button>
+    </div>
   );
 };
 
