@@ -18,7 +18,7 @@
   4. Improve text rendering
 */
 body {
-  min-height: 100vh;
+  min-height: 100%;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 
@@ -28,15 +28,11 @@ body {
   font-weight: 400;
   font-style: normal;
   color: hsl(206, 15%, 22%);
+  display: grid;
+  place-content: center;
 }
 @media all and (min-width: 600px) {
-  body {
-    display: grid;
-    place-items: center;
-    align-content: center;
-  }
   main {
-    min-width: 600px;
   }
 }
 

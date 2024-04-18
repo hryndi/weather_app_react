@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-
+import WindSpeedImg from "/wind-speed.jpg";
 import { FC } from "react";
 
 const MainFlexGroup = styled.div`
@@ -27,11 +27,17 @@ const WindValueWrapper = styled.div`
   font-weight: 500;
 `;
 const WindH4 = styled.h4`
-  font-size: 0.8rem;
+  font-size: 1rem;
   line-height: 1;
 `;
 const WindValueP = styled.p`
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+const WindImg = styled.img`
+  width: 40px;
 `;
 
 const CurrentInfoComponent: FC<{
@@ -66,7 +72,10 @@ const CurrentInfoComponent: FC<{
       </WeatherConditionH2>
       <WindValueWrapper className="wind-value-wrapper">
         <WindH4>Wind</WindH4>
-        <WindValueP className="wind-value">{`${windSpeed}${symbol.wind_speed_10m}`}</WindValueP>
+        <WindValueP className="wind-value">
+          <WindImg src={WindSpeedImg} alt="" />
+          {`${windSpeed}${symbol.wind_speed_10m}`}
+        </WindValueP>
       </WindValueWrapper>
     </MainFlexGroup>
   );

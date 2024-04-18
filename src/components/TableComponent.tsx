@@ -3,9 +3,9 @@ import { WeaklyWether } from "../WeatherApp.hooks";
 import { FC } from "react";
 
 const Table = styled.table`
-  width: 100%;
   border-spacing: 10px;
   width: 100%;
+  max-width: 600px;
 `;
 const Tr = styled.tr``;
 const Td = styled.td`
@@ -23,6 +23,7 @@ const Td = styled.td`
   font-weight: 500;
   &:last-child {
     text-align: left;
+    white-space: nowrap;
   }
 `;
 const TableImg = styled.img`

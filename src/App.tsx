@@ -6,12 +6,23 @@ import StateTimeComponent from "./components/StateTimeComponent";
 import { useWeatherApp } from "./WeatherApp.hooks";
 
 const Main = styled.main`
-  padding: 1.5rem;
-  /* border: orange 1px solid; */
-  display: grid;
-  gap: 2.5rem;
   justify-items: center;
-  /* max-width: 100svh; */
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1.5rem;
+  /* background-color: #667989; */
+  @media (min-width: 600px) and (min-height: 700px) {
+    justify-content: center;
+  }
+  @media (max-width: 600px) or (max-height: 700px) {
+    padding: 20px;
+  }
 `;
 
 export default function App() {

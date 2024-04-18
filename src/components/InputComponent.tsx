@@ -47,7 +47,13 @@ const InputComponent: FC<Props> = ({
     } else return;
   };
   return (
-    <div style={{ display: "flex", alignItems: "center", maxWidth: "100%" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        maxWidth: "-webkit-fill-available",
+      }}
+    >
       <Input
         value={cityName}
         onChange={(e) => setCityName(e.target.value)}
