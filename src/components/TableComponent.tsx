@@ -1,44 +1,66 @@
 import styled from "@emotion/styled";
 import { WeaklyWether } from "../WeatherApp.hooks";
-import { CSSProperties, FC } from "react";
+import { FC } from "react";
 
 const Table = styled.table`
-  border: 1px solid black;
+  width: 100%;
+  border-spacing: 10px;
+  width: 100%;
 `;
-const Tr = styled.tr`
-  border: 1px solid blue;
+const Tr = styled.tr``;
+const Td = styled.td`
+  &.text-align-left {
+    text-align: left;
+  }
+  &.text-align-center {
+    text-align: center;
+  }
+  &.text-align-right {
+    text-align: right;
+  }
+  /* padding-inline: 1rem; */
+  text-align: center;
+  font-weight: 500;
+  &:last-child {
+    text-align: left;
+  }
 `;
-const Td = styled("td")(() => ({
-  "&.text-align-left": {
-    textAlign: "left" as CSSProperties["textAlign"],
-  },
-  "&.text-align-center": {
-    textAlign: "center" as CSSProperties["textAlign"],
-  },
-  "&.text-align-right": {
-    textAlign: "right" as CSSProperties["textAlign"],
-  },
-}));
+const TableImg = styled.img`
+  width: 40px;
+`;
 
 type Props = {
   weaklyWether: WeaklyWether;
+  dateHandler: (time: string) => string;
+  conditionHandler: (condition: number, conditionImg: boolean) => string;
 };
 
-const sevenData = Array.from("1234567", (idx) => idx);
+const sevenData = Array.from("12345", (idx) => idx);
 
-const TableComponent: FC<Props> = ({ weaklyWether }) => {
+const TableComponent: FC<Props> = ({
+  weaklyWether,
+  dateHandler,
+  conditionHandler,
+}) => {
   return (
     <Table>
-      {sevenData.map((i, idx) => (
-        <Tr>
-          <Td>{weaklyWether.time[idx]}</Td>
-          <Td>{weaklyWether.weather_code[idx]}</Td>
-          <Td className="text-align-right">
-            {weaklyWether.temperature_2m_min[idx]} -{" "}
-            {weaklyWether.temperature_2m_max[idx]}
-          </Td>
-        </Tr>
-      ))}
+      <tbody>
+        {sevenData.map((i, idx) => (
+          <Tr>
+            <Td>{dateHandler(weaklyWether.time[idx])}</Td>
+            <Td>
+              <TableImg
+                src={conditionHandler(weaklyWether.weather_code[idx], true)}
+                alt=""
+              />
+            </Td>
+            <Td className="text-align-justify">
+              {`${parseInt(`${weaklyWether.temperature_2m_min[idx]}`, 10)}° - `}
+              {`${weaklyWether.temperature_2m_max[idx]}°`}
+            </Td>
+          </Tr>
+        ))}
+      </tbody>
     </Table>
   );
 };

@@ -18,12 +18,25 @@
   4. Improve text rendering
 */
 body {
-  min-height: 100svh;
+  min-height: 100%;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 
-  display: grid;
-  place-content: center;
+  /* display: grid; */
+  /* place-content: center; */
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: hsl(206, 15%, 22%);
+}
+@media all and (min-width: 600px) {
+  body {
+    display: grid;
+    place-items: center;
+  }
+  main {
+    min-width: 600px;
+  }
 }
 
 /*

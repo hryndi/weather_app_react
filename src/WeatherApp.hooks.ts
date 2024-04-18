@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import { TLocationResult, TCurrWeatherResult } from "./types";
-import MainlyClearImg from "/mainly-clear.png";
-import OvercastImg from "/overcast.png";
-import PartCloudyImg from "/partly-cloudy.png";
 import { Root } from "./weather_api.types";
+
+import MainlyClearImg from "/sun.png";
+import OvercastImg from "/mostly-cloudy.jpg";
+import PartCloudyImg from "/cloudy-sky-with-sun.png";
+import DizzyImg from "/dizzy.png";
+import RainyImg from "/rainy.png";
+import HazeImg from "/haze.png";
+import SnowyImg from "/snowfall.png";
 
 type GeoType = {
   long: number;
@@ -138,19 +143,44 @@ export const useWeatherApp = () => {
     setCityName(sanitizedCity);
   };
 
-  const conditionHandler = (conditionImg?: boolean) => {
-    const condition = currentWether.weather_code;
-
+  const conditionHandler = (condition: number, conditionImg?: boolean) => {
     if (condition === 1) {
       return conditionImg ? MainlyClearImg : "Mainly clear";
     }
     if (condition === 2) {
-      return conditionImg ? PartCloudyImg : "partly cloudy";
+      return conditionImg ? PartCloudyImg : "Partly cloudy";
     }
     if (condition === 3) {
-      return conditionImg ? OvercastImg : "overcast";
+      return conditionImg ? OvercastImg : "Overcast";
+    }
+    if (condition === 0) {
+      return conditionImg ? MainlyClearImg : "Clear sky";
+    }
+    if (condition === 45 || condition === 48) {
+      return conditionImg ? HazeImg : "Fog";
+    }
+    if (condition === 51 || condition === 53 || condition === 55) {
+      return conditionImg ? DizzyImg : "Drizzle";
+    }
+    if (condition === 80 || condition === 81 || condition === 82) {
+      return conditionImg ? RainyImg : "Rainy";
+    }
+    if (condition === 71 || condition === 73 || condition === 75) {
+      return conditionImg ? SnowyImg : "Snowy";
+    }
+    if (condition === 85 || condition === 86) {
+      return conditionImg ? SnowyImg : "Snowy";
     }
     return "select city";
+  };
+
+  const dateHandler = (weaklyWether: string) => {
+    const date = new Date(weaklyWether);
+    const dd = String(date.getDate()).padStart(2, "0");
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const yyyy = String(date.getFullYear());
+    const today = `${mm}/${dd}/${yyyy}`;
+    return today;
   };
 
   return {
@@ -162,5 +192,6 @@ export const useWeatherApp = () => {
     submitHandler,
     conditionHandler,
     weaklyWether,
+    dateHandler,
   };
 };
