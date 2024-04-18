@@ -133,14 +133,15 @@ export const useWeatherApp = () => {
   const submitHandler = () => {
     fetchGeo();
     const sanitizedCity = cityName
+      .trim()
       .split(" ")
       .map(
         (cityString) =>
           cityString[0].toUpperCase() + cityString.slice(1).toLowerCase()
       )
       .join(" ");
-    setRenderedCityName(sanitizedCity);
-    setCityName(sanitizedCity);
+    setRenderedCityName(sanitizedCity.trimEnd());
+    setCityName(sanitizedCity.trimEnd());
   };
 
   const conditionHandler = (condition: number, conditionImg?: boolean) => {
