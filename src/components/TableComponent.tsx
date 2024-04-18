@@ -46,7 +46,7 @@ const TableComponent: FC<Props> = ({
     <Table>
       <tbody>
         {sevenData.map((i, idx) => (
-          <Tr>
+          <Tr key={i}>
             <Td>{dateHandler(weaklyWether.time[idx])}</Td>
             <Td>
               <TableImg
