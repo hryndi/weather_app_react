@@ -2,14 +2,32 @@ import { Dispatch, FC, SetStateAction } from "react";
 import styled from "@emotion/styled";
 
 const Input = styled.input`
-  border-color: red;
-  padding: 1px;
+  margin-left: 1rem;
+  border-color: #189af8;
+  padding: 0.3rem;
   border-radius: 9999em;
+
+  &:focus {
+    outline: none !important;
+    border-color: #719ece;
+    box-shadow: 0 0 8px #719ece;
+  }
 `;
 const Button = styled.button`
-  border-color: #cd1313;
-  border-radius: 0.5rem;
+  margin-right: 1rem;
+  border-radius: 1rem;
   margin-left: 1rem;
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  border: 0;
+  background-color: #189bf889;
+  transition: 0.3s;
+  height: fit-content;
+
+  &:active {
+    background-color: #3cd2fbca;
+    box-shadow: 0 0 10px #719ece;
+  }
 `;
 
 interface Props {
@@ -29,7 +47,7 @@ const InputComponent: FC<Props> = ({
     } else return;
   };
   return (
-    <div>
+    <div style={{ display: "flex", alignItems: "center", maxWidth: "100%" }}>
       <Input
         value={cityName}
         onChange={(e) => setCityName(e.target.value)}

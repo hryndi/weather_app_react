@@ -6,10 +6,12 @@ import StateTimeComponent from "./components/StateTimeComponent";
 import { useWeatherApp } from "./WeatherApp.hooks";
 
 const Main = styled.main`
-  border: orange 1px solid;
+  padding: 1.5rem;
+  /* border: orange 1px solid; */
   display: grid;
-  gap: 1.5rem;
+  gap: 2.5rem;
   justify-items: center;
+  /* max-width: 100svh; */
 `;
 
 export default function App() {
@@ -21,6 +23,7 @@ export default function App() {
     renderedCityName,
     conditionHandler,
     weaklyWether,
+    dateHandler,
   } = useWeatherApp();
 
   return (
@@ -31,6 +34,7 @@ export default function App() {
         submitHandler={submitHandler}
       />
       <StateTimeComponent
+        dateHandler={dateHandler}
         cityName={renderedCityName}
         time={currentWether.time}
       />
@@ -38,9 +42,14 @@ export default function App() {
         temperatur={currentWether.temperature_2m}
         symbol={currentWether.current_units}
         windSpeed={currentWether.wind_speed_10m}
+        currentWetherCode={currentWether.weather_code}
         conditionHandler={conditionHandler}
       />
-      <TableComponent weaklyWether={weaklyWether} />
+      <TableComponent
+        conditionHandler={conditionHandler}
+        weaklyWether={weaklyWether}
+        dateHandler={dateHandler}
+      />
     </Main>
   );
 }
